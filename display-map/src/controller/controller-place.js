@@ -7,8 +7,8 @@ exports.create_place = req => {
   return new Promise((resolve, reject) => {
     let new_place = new Place(req.body);
     new_place.save()
-      .then(() =>{
-        resolve('Place created.');
+      .then(place =>{
+        resolve(place);
       }).catch(error => {
         reject(error);
       });
@@ -30,11 +30,11 @@ exports.get_all = () => {
 
 exports.update_place = req => {
   return new Promise((resolve, reject) => {
-    Place.findByIdAndUpdate(req.body.id, {open: req.body.open})
+    Place.findByIdAndUpdate(req.body.id, {open: req.body.open}, {new: true})
       .exec()
       .then( result => {
         console.log(result);
-        resolve('Place updated');
+        resolve(result);
       })
       .catch(error => {
         reject(error);

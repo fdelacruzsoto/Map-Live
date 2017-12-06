@@ -15,5 +15,21 @@ export class AppComponent implements OnInit {
       console.log('Server connected: ' + data.connected);
       this.socket.emit('client', { connected: true });
     }.bind(this));
+
+    this.socket.on('list', function (data) {
+      console.log(data);
+    }.bind(this));
+
+    this.socket.on('new', function (data) {
+      console.log(data);
+    }.bind(this));
+
+    this.socket.on('update', function (data) {
+      console.log(data);
+    }.bind(this));
+
+    this.socket.on('delete', function (data) {
+      console.log(data);
+    }.bind(this));
   }
 }
