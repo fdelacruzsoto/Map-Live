@@ -1,9 +1,7 @@
 'use strict';
 
-const express = require('express');
-const server = require('http').Server(express);
+const app = require('express')();
 const bodyParser = require('body-parser');
-const io = require('socket.io')(server);
 const morgan = require('morgan');
 let place = require('../model/model-place');
 const place_api = require('../api/api-place');
@@ -19,22 +17,21 @@ const start = (options) => {
     if(!options.port){
       reject(new Error('The server must be started with a valid port.'));
     }
-    const app = express();
     app.use(bodyParser.urlencoded({
       extended: true
     }));
     app.use(morgan('dev'));
+    app.use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+      res.header('Access-Control-Allow-Credentials', true);
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
     app.use((err, req, res, next) => {
       reject(new Error('Something went wrong. Error: ' + err));
       res.status(500).send('Something went wrong!');
     });
     place_api(app);
-    io.on('connection', function (socket) {
-      socket.emit('news', { hello: 'world' });
-      socket.on('my other event', function (data) {
-        console.log(data);
-      });
-    });
     const server = app.listen(options.port, () => resolve(server));
   });
 };

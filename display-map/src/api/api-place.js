@@ -1,29 +1,41 @@
 'use strict';
 
 const status = require('http-status');
-let place_controller = require('../controller/controller-place');
+const config = require('../config/config');
+const place_controller = require('../controller/controller-place');
+const http = require('http');
 
 module.exports = (app) => {
+
+  const server = http.Server(app);
+  server.listen(config.server.socket); 
+  const io = require('socket.io')(server); // Warning! This shouldn't be done, I couldn't find a way to don't use require here, I'll come back later
+
+  io.on('connection', socket => {
+    socket.emit('connected', { connected: 'yes!' });
+    socket.on('client', data => {
+      console.log('Client connected: ' + data.connected);
+    });
+  });
 
   app.get('/', (req, res, next) => {
     res.status(status.OK).json({message: 'ok'});
   });
 
   app.post('/place', (req, res, next) => {
-    console.log(req.body);
-    
-    place_controller.create_place(req).then((data) => {
-      console.log(data);
-      res.status(status.CREATED).json({result: 'Place created'});
-    }).catch((error) => {
-      console.log(error);
-      res.status(status.error).json({result: 'Error while creating a new place created'});
-    });
+    place_controller.create_place(req)
+      .then(data => {
+        console.log(data);
+        res.status(status.CREATED).json({result: 'Place created'});
+      }).catch((error) => {
+        console.log(error);
+        res.status(status.FORBIDDEN).json({result: 'Error while creating a new place created'});
+      });
   });
 
   app.get('/place', (req, res, next) => {
     place_controller.get_all()
-      .then((places) => {
+      .then(places => {
         console.log(places);
         res.status(status.OK).json({places: places});
       }).catch((error) => {
@@ -36,7 +48,7 @@ module.exports = (app) => {
     place_controller.update_place(req)
       .then(result => {
         console.log(result);
-        res.status(status.ACCEPTED).json({result: 'Place updated.'});
+        res.status(status.ACCEPTED).json({result: result});
       }).catch((error) => {
         console.log(error);
         res.status(status.NOT_MODIFIED).json({result: 'It was not possible to update the place.'});
@@ -44,7 +56,15 @@ module.exports = (app) => {
   });
 
   app.delete('/place', (req, res, next) => {
-            
+    place_controller.delete_place(req)
+      .then(result => {
+        console.log(result);
+        res.status(status.OK).json({result: result});
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(status.NOT_MODIFIED).json({result: 'It was not possible to update the place.'});
+      });
   });
 
 };

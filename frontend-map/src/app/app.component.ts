@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  socket = io('http://localhost:8000');
+  socket = io('http://localhost:3001');
 
   ngOnInit() {
     this.socket.on('connected', function (data) {

@@ -17,7 +17,8 @@ exports.create_place = req => {
 
 exports.get_all = () => {
   return new Promise((resolve, reject) => {
-    Place.find({}).exec()
+    Place.find({})
+      .exec()
       .then(places => {
         resolve(places);
       })
@@ -29,11 +30,25 @@ exports.get_all = () => {
 
 exports.update_place = req => {
   return new Promise((resolve, reject) => {
-    Place.findByIdAndUpdate(req.body.id, {open: req.body.open}).exec()
-      .then( () => {
-        resolve('Place updated.');
-      }
-      )
+    Place.findByIdAndUpdate(req.body.id, {open: req.body.open})
+      .exec()
+      .then( result => {
+        console.log(result);
+        resolve('Place updated');
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+exports.delete_place = req => {
+  return new Promise((resolve, reject) => {
+    Place.findByIdAndRemove(req.body.id)
+      .exec()
+      .then(() => {
+        resolve('Place deleted.');
+      })
       .catch(error => {
         reject(error);
       });

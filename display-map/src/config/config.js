@@ -10,10 +10,12 @@ const database = {
 };
 
 /**
- * The server will be running at port 8000
+ * The server will be running at port 3000 by default
+ * The server will be listening for web socket on 3001 by default
  */
 const server = {
-  port: process.env.PORT || 8000
+  port: process.env.PORT || 3000,
+  socket: process.env.PORT || 3001
 };
 
 module.exports = Object.assign({}, { database, server })
