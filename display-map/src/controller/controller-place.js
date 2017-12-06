@@ -3,13 +3,39 @@
 let mongoose = require('mongoose');
 let Place = mongoose.model('Place');
 
-exports.create_place = (req) => {
+exports.create_place = req => {
   return new Promise((resolve, reject) => {
     let new_place = new Place(req.body);
-    if(new_place.save()){
-      resolve('User created');
-    } else {
-      reject('There was an error');
-    }
+    new_place.save()
+      .then(() =>{
+        resolve('Place created.');
+      }).catch(error => {
+        reject(error);
+      });
+  });
+}
+
+exports.get_all = () => {
+  return new Promise((resolve, reject) => {
+    Place.find({}).exec()
+      .then(places => {
+        resolve(places);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+exports.update_place = req => {
+  return new Promise((resolve, reject) => {
+    Place.findByIdAndUpdate(req.body.id, {open: req.body.open}).exec()
+      .then( () => {
+        resolve('Place updated.');
+      }
+      )
+      .catch(error => {
+        reject(error);
+      });
   });
 }
