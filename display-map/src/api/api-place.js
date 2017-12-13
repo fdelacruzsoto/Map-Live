@@ -32,7 +32,15 @@ module.exports = (app) => {
     place_controller.create_place(req)
       .then(data => {
         console.log(data);
-        socket.emit('new',{place: data});
+        place_controller.get_all()
+        .then(places => {
+          console.log(places);
+          socket.emit('list',{places: places});
+          res.status(status.OK).json({places: places});
+        }).catch((error) => {
+          console.log(error);
+          res.status(status.NOT_FOUND).json({result: 'It was not possible to return the list of places.'});
+        });
         res.status(status.CREATED).json({result: 'Place created'});
       }).catch((error) => {
         console.log(error);
@@ -56,7 +64,15 @@ module.exports = (app) => {
     place_controller.update_place(req)
       .then(result => {
         console.log(result);
-        socket.emit('update',{place: result});
+        place_controller.get_all()
+        .then(places => {
+          console.log(places);
+          socket.emit('list',{places: places});
+          res.status(status.OK).json({places: places});
+        }).catch((error) => {
+          console.log(error);
+          res.status(status.NOT_FOUND).json({result: 'It was not possible to return the list of places.'});
+        });
         res.status(status.ACCEPTED).json({result: result});
       }).catch((error) => {
         console.log(error);
@@ -68,7 +84,15 @@ module.exports = (app) => {
     place_controller.delete_place(req)
       .then(result => {
         console.log(result);
-        socket.emit('delete',{place: req.body.id});
+        place_controller.get_all()
+        .then(places => {
+          console.log(places);
+          socket.emit('list',{places: places});
+          res.status(status.OK).json({places: places});
+        }).catch((error) => {
+          console.log(error);
+          res.status(status.NOT_FOUND).json({result: 'It was not possible to return the list of places.'});
+        });
         res.status(status.OK).json({result: result});
       })
       .catch((error) => {
