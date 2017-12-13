@@ -1,0 +1,127 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Map",
+		"_postman_id": "9e5dce4c-a4a7-a06a-6699-a17fb9317fe0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST place",
+			"request": {
+				"url": "localhost:3000/place",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Plaza del angel",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lat",
+							"value": "20.6544729",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "long",
+							"value": "-103.4065053",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "open",
+							"value": "true",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Places",
+			"request": {
+				"url": "localhost:3000/place",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT place",
+			"request": {
+				"url": "localhost:3000/place",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5a276f62ae8bd345fca52e97",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "open",
+							"value": "false",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE place",
+			"request": {
+				"url": "localhost:3000/place",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5a30a01da9246e57d805ff5b",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
