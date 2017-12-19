@@ -35,13 +35,13 @@ export const init = (app) => {
       .then(data => {
         console.log(data);
         mediator.emit('updateList');
-        res.status(status.CREATED).json({
+        res.status(status.OK).json({
           result: 'Place created'
         });
       })
       .catch((error) => {
         console.log(error);
-        res.status(status.FORBIDDEN).json({
+        res.status(status.INTERNAL_SERVER_ERROR).json({
           result: 'Error while creating a new place.'
         });
       });
@@ -52,7 +52,7 @@ export const init = (app) => {
       .then(places => {
         console.log(places);
         mediator.emit('updateList');
-        res.status(status.FOUND).json({
+        res.status(status.OK).json({
           result: places
         }); 
       }).catch((error) => {
@@ -68,12 +68,12 @@ export const init = (app) => {
     .then(result => {
       console.log(result);
       mediator.emit('updateList');
-      res.status(status.ACCEPTED).json({
+      res.status(status.OK).json({
         result: result
       });
     }).catch((error) => {
       console.log(error);
-      res.status(status.NOT_MODIFIED).json({
+      res.status(status.INTERNAL_SERVER_ERROR).json({
         result: 'It was not possible to update the place.'
       });
     });
@@ -90,7 +90,7 @@ export const init = (app) => {
       })
       .catch((error) => {
         console.log(error);
-        res.status(status.NOT_MODIFIED).json({
+        res.status(status.INTERNAL_SERVER_ERROR).json({
           result: 'It was not possible to delete the place.'
         });
       });
