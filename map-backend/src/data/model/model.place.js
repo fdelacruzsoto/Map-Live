@@ -1,11 +1,6 @@
-'use strict';
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-/**
- * A very simple schema
- */
 const PlaceSchema = new Schema({
   name: {
     type: String,
@@ -25,4 +20,4 @@ const PlaceSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Place', PlaceSchema);
+export default mongoose.model('Place', PlaceSchema);

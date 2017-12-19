@@ -1,13 +1,7 @@
-'use strict';
+import mongoose from 'mongoose';
+const Place = mongoose.model('Place');
 
-let mongoose = require('mongoose');
-let Place = mongoose.model('Place');
-
-/**
- * Create a new place in DB
- * @param {*} req 
- */
-exports.create_place = req => {
+export function create_place(req) {
   return new Promise((resolve, reject) => {
     let new_place = new Place(req.body);
     new_place.save()
@@ -19,10 +13,7 @@ exports.create_place = req => {
   });
 }
 
-/**
- * Get all the places in the db
- */
-exports.get_all = () => {
+export function get_all() {
   return new Promise((resolve, reject) => {
     Place.find({})
       .exec()
@@ -39,7 +30,7 @@ exports.get_all = () => {
  * Update a place
  * @param {*} req 
  */
-exports.update_place = req => {
+export function update_place(req) {
   return new Promise((resolve, reject) => {
     Place.findByIdAndUpdate(req.body.id, {open: req.body.open}, {new: true})
       .exec()
@@ -57,7 +48,7 @@ exports.update_place = req => {
  * Delete a place
  * @param {*} req 
  */
-exports.delete_place = req => {
+export function delete_place(req) {
   return new Promise((resolve, reject) => {
     Place.findByIdAndRemove(req.body.id)
       .exec()

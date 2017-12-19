@@ -39,7 +39,7 @@ console.log('Logging level: ' + config_server.morgan);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
-// Connect to the DB
+// Connect to DB
 db.connect(config_db);
 
 console.log('Database level: ' + config_server.env);
