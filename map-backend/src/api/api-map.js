@@ -30,6 +30,9 @@ mediator.on('updateList', () => {
 });
 
 export const init = (app) => {
+
+  app.get("/", (req, res) => res.json({message: "Welcome!"}));
+
   app.post('/place', (req, res, next) => {
     controller.create_place(req)
       .then(data => {
