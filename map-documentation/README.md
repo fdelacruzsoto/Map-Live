@@ -4,6 +4,7 @@ For the backend it is only needed to have node and mongodb installed.
 
  - MongoDB installed
  - Node installed
+ - Edit the config file for the database, change "database" to "localhost"
  
 ## Running the backend ##
  - Start mongo using `mongod` command

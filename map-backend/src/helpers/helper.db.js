@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 
 const mongo_options = {
-  useMongoClient: true
+  useMongoClient: true,
+  reconnectTries: Number.MAX_VALUE, 
+  reconnectInterval: 500,
 };
 
 export const connect = (config) => {
