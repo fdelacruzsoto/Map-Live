@@ -11,7 +11,7 @@ export const init = (app, config_server) => {
 
   // Configure logging and body parser
   app.use(morgan(config_server.morgan));
-  console.log('Logging level: ' + config_server.morgan);
+  //console.log('Logging level: ' + config_server.morgan);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended:true }));
 }

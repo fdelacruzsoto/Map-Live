@@ -11,12 +11,12 @@ const socket = io.on('connection', sock => {
     connected: 'yes!'
   });
   sock.on('client', data => {
-    console.log('Client connected: ' + data.connected);
+    //console.log('Client connected: ' + data.connected);
   });
 });
 
 mediator.on('updateList', () => {
-  console.log('List updated'); 
+  //console.log('List updated'); 
   controller.get_all()
     .then(places => {
       socket.emit('list', {
@@ -36,14 +36,14 @@ export const init = (app) => {
   app.post('/place', (req, res, next) => {
     controller.create_place(req)
       .then(data => {
-        console.log(data);
+        //console.log(data);
         mediator.emit('updateList');
         res.status(status.OK).json({
           result: 'Place created'
         });
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         res.status(status.INTERNAL_SERVER_ERROR).json({
           result: 'Error while creating a new place.'
         });
@@ -53,13 +53,13 @@ export const init = (app) => {
   app.get('/place', (req, res, next) => {
     controller.get_all()
       .then(places => {
-        console.log(places);
+        //console.log(places);
         mediator.emit('updateList');
         res.status(status.OK).json({
           result: places
         }); 
       }).catch((error) => {
-        console.log(error);
+        //console.log(error);
         res.status(status.INTERNAL_SERVER_ERROR).json({
           result: 'There was an error'
         });
@@ -69,13 +69,13 @@ export const init = (app) => {
   app.put('/place', (req, res, next) => {
     controller.update_place(req)
     .then(result => {
-      console.log(result);
+      //console.log(result);
       mediator.emit('updateList');
       res.status(status.OK).json({
         result: result
       });
     }).catch((error) => {
-      console.log(error);
+      //console.log(error);
       res.status(status.INTERNAL_SERVER_ERROR).json({
         result: 'It was not possible to update the place.'
       });
@@ -85,14 +85,14 @@ export const init = (app) => {
   app.delete('/place', (req, res, next) => {
     controller.delete_place(req)
       .then(result => {
-        console.log(result);
+        //console.log(result);
         mediator.emit('updateList');
         res.status(status.OK).json({
           result: result
         });
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         res.status(status.INTERNAL_SERVER_ERROR).json({
           result: 'It was not possible to delete the place.'
         });

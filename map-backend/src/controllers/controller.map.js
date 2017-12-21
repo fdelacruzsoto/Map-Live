@@ -26,16 +26,12 @@ export function get_all() {
   });
 }
 
-/**
- * Update a place
- * @param {*} req 
- */
 export function update_place(req) {
   return new Promise((resolve, reject) => {
     Place.findByIdAndUpdate(req.body.id, {open: req.body.open}, {new: true})
       .exec()
       .then( result => {
-        console.log(result);
+        //console.log(result);
         resolve(result);
       })
       .catch(error => {
@@ -44,10 +40,6 @@ export function update_place(req) {
   });
 }
 
-/**
- * Delete a place
- * @param {*} req 
- */
 export function delete_place(req) {
   return new Promise((resolve, reject) => {
     Place.findByIdAndRemove(req.body.id)

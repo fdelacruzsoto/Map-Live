@@ -4,10 +4,12 @@
   "description": "Live map",
   "main": "index.js",
   "scripts": {
+    "lint-dev": "eslint src/**",
+    "lint-prod": "eslint dist/**",
+    "build": "babel src --out-dir dist",
     "test": "NODE_ENV=test mocha --require babel-register test/*.js --reporter spec||exit 0",
     "start-dev": "nodemon --exec babel-node src/index.js",
-    "build": "babel src --out-dir dist",
-    "start": "node dist/index.js" 
+    "start": "node dist/index.js"
   },
   "author": "fernando.delacruzsoto@kaifn.xyz",
   "license": "ISC",
@@ -22,9 +24,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "eslint": "^3.19.0",
     "mocha": "^4.0.1",
     "nodemon": "^1.13.2"
   }
